@@ -1,0 +1,33 @@
+.bg-class {
+    --background: rgb(255,226,164);
+    --background: linear-gradient(0deg, rgba(255,226,164,1) 0%, rgba(255,255,255,1) 100%);
+}
+  
+.home-area {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 0px 30px;
+}
+
+ion-item {
+    --background: transparent !important;
+    --highlight-height: 0;
+    --border-color: black;
+    --border-width: 1px;
+    --border-radius: 10px;
+    margin-bottom: 10px !important;
+}
+
+.panel-selector {
+    color: #29235e;
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-content: center;
+    text-align: center;
+    // --placeholder-color:red;
+}

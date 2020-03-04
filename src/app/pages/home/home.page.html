@@ -9,6 +9,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="bg-class">
+
+  <div class="home-area">
+    <ion-item>
+      <ion-select class="panel-selector" placeholder="Select Panel" [(ngModel)]="panel_id">
+        <ion-select-option value="a">Blue</ion-select-option>
+        <ion-select-option value="b">Blue</ion-select-option>
+        <ion-select-option value="c">Blue</ion-select-option>
+        <ion-select-option value="d">Blue</ion-select-option>
+        <ion-select-option value="e">Blue</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button expand="full" class="no-padding" color="dark" (click)="selectPanel()">NEXT</ion-button>
+  </div>
 
 </ion-content>
