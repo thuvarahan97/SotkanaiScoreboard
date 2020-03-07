@@ -7,8 +7,16 @@
 ion-item {
     --border-width: 2px;
     --border-radius: 10px;
+    --background: transparent;
 }
 
 .header .col ion-item {
     --background: lightgrey;
+}
+
+.ripple-parent {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    border-width: 0;
 }

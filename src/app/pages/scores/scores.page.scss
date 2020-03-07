@@ -1,0 +1,19 @@
+.score-list ion-range {
+    padding: 5px 0;
+}
+
+.score-list ion-badge.score-badge {
+    --background: #f5f5f5;
+    --color: black;
+    font-size: large;
+    float: right;
+}
+
+ion-button.submit-btn {
+    padding: 0 15px;
+}
+
+.student-details {
+    text-align: center;
+    --padding-start: 0;
+}
