@@ -1,5 +1,7 @@
 {
   "name": "sotkanaiScoreboardApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
