@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { ToastController, LoadingController, AlertController, NavController } from "@ionic/angular";
 import { AccessProviders } from "../../providers/access-providers";
 import { Storage } from "@ionic/storage";
@@ -83,8 +83,13 @@ export class HomePage implements OnInit {
   //   }
   // }
 
-  openStudentScores() {
-    this.router.navigate(['/scores']);
+  openStudentScores(student_id) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          student_id: student_id
+      }
+    };
+    this.navCtrl.navigateForward(['/scores'], navigationExtras);
   }
 
   async presentToast(a) {
@@ -94,6 +99,15 @@ export class HomePage implements OnInit {
       position: 'top'
     });
     toast.present();
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
   }
 
 }

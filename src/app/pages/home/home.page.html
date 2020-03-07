@@ -10,19 +10,9 @@
 </ion-header>
 
 <ion-content class="bg-class">
-
-  <!-- <div class="home-area">
-    <ion-item>
-      <ion-select class="panel-selector" placeholder="Select Panel" [(ngModel)]="panel_id">
-        <ion-select-option value="a">Blue</ion-select-option>
-        <ion-select-option value="b">Blue</ion-select-option>
-        <ion-select-option value="c">Blue</ion-select-option>
-        <ion-select-option value="d">Blue</ion-select-option>
-        <ion-select-option value="e">Blue</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-button expand="full" class="no-padding" color="dark" (click)="selectPanel()">NEXT</ion-button>
-  </div> -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
   <div class="home-area">
     <ion-grid fixed="true">
@@ -46,7 +36,7 @@
       <ion-row class="row">
         <ion-col class="col" size="6">
           <div>
-              <ion-item (click)="openStudentScores()">
+              <ion-item (click)="openStudentScores(2)">
                 S. Thuvarahan
               </ion-item>
           </div>
@@ -77,124 +67,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                V. Sajeevan
-              </ion-item>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                S. Sinthujan
-              </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                V. Sajeevan
-              </ion-item>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                S. Sinthujan
-              </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                V. Sajeevan
-              </ion-item>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                S. Sinthujan
-              </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                V. Sajeevan
-              </ion-item>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                S. Sinthujan
-              </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                V. Sajeevan
-              </ion-item>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                S. Sinthujan
-              </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                V. Sajeevan
-              </ion-item>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                S. Sinthujan
-              </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                V. Sajeevan
-              </ion-item>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div>
-              <ion-item>
-                S. Sinthujan
-              </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
+      
 
       <ion-row class="row">
         <ion-col class="col" size="6">
