@@ -46,41 +46,45 @@ export class HomePage implements OnInit {
     this.presentToast('Successfully logged out!');
   }
 
-  async selectPanel() {
-    if (this.panel_id == ""){
-      this.presentToast('Select a panel to continue!')
-    }
-    else {
-      const loader = await this.loadingCtrl.create({
-        message: 'Please wait......',
-      });
-      loader.present();
+  // async selectPanel() {
+  //   if (this.panel_id == ""){
+  //     this.presentToast('Select a panel to continue!')
+  //   }
+  //   else {
+  //     const loader = await this.loadingCtrl.create({
+  //       message: 'Please wait......',
+  //     });
+  //     loader.present();
 
-      return new Promise(resolve=> {
-        let body = {
-          aksi: 'select_panel',
-          panel_id: this.panel_id
-        }
+  //     return new Promise(resolve=> {
+  //       let body = {
+  //         aksi: 'select_panel',
+  //         panel_id: this.panel_id
+  //       }
 
-        this.accsPrvds.postData(body, 'process_api.php').subscribe((res:any)=>{
-          if(res.success == true){
-            loader.dismiss();
-            this.disabledButton = false;
-            this.storage.set('storage_xxx', res.result); // create storage session
-            this.navCtrl.navigateRoot(['/home']);
-          }
-          else {
-            loader.dismiss();
-            this.disabledButton = false;
-            this.presentToast('Panel is currently unavailable!');
-          }
-        },(err)=>{
-          loader.dismiss();
-          this.disabledButton = false;
-          this.presentToast('Timeout!');
-        })
-      });
-    }
+  //       this.accsPrvds.postData(body, 'process_api.php').subscribe((res:any)=>{
+  //         if(res.success == true){
+  //           loader.dismiss();
+  //           this.disabledButton = false;
+  //           this.storage.set('storage_xxx', res.result); // create storage session
+  //           this.navCtrl.navigateRoot(['/home']);
+  //         }
+  //         else {
+  //           loader.dismiss();
+  //           this.disabledButton = false;
+  //           this.presentToast('Panel is currently unavailable!');
+  //         }
+  //       },(err)=>{
+  //         loader.dismiss();
+  //         this.disabledButton = false;
+  //         this.presentToast('Timeout!');
+  //       })
+  //     });
+  //   }
+  // }
+
+  openStudentScores() {
+    this.router.navigate(['/scores']);
   }
 
   async presentToast(a) {
@@ -93,3 +97,5 @@ export class HomePage implements OnInit {
   }
 
 }
+
+
