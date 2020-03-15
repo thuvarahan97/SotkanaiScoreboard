@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
     else {
       this.disabledButton = true;
       const loader = await this.loadingCtrl.create({
-        message: 'Please wait......',
+        message: 'Please wait...',
       });
       loader.present();
 

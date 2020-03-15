@@ -22,36 +22,12 @@
   
   <ion-list class="score-list">
     
-    <ion-item>
+    <ion-item *ngFor="let criteria of grading_rubric">
       <ion-label>
         <ion-text color="primary">
-          <h3>Primary Title <ion-badge class="score-badge">{{score1}}</ion-badge></h3>
+          <h3>{{criteria.title}} <ion-badge class="score-badge">{{criteria.ngmodel}}</ion-badge></h3>
         </ion-text>
-        <ion-range min="0" max="100" color="primary" pin="true" [(ngModel)]="score1">
-          <ion-label slot="start">0</ion-label>
-          <ion-label slot="end">100</ion-label>
-        </ion-range>
-      </ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>
-        <ion-text color="primary">
-          <h3>Primary Title <ion-badge class="score-badge">{{score2}}</ion-badge></h3>
-        </ion-text>
-        <ion-range min="0" max="100" color="primary" pin="true" [(ngModel)]="score2">
-          <ion-label slot="start">0</ion-label>
-          <ion-label slot="end">100</ion-label>
-        </ion-range>
-      </ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>
-        <ion-text color="primary">
-          <h3>Primary Title <ion-badge class="score-badge">100</ion-badge></h3>
-        </ion-text>
-        <ion-range min="0" max="100" color="primary" pin="true" name="name1">
+        <ion-range min="0" max="100" color="primary" pin="true" [(ngModel)]="criteria.ngmodel">
           <ion-label slot="start">0</ion-label>
           <ion-label slot="end">100</ion-label>
         </ion-range>

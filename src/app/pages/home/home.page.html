@@ -44,7 +44,7 @@
             <ion-row class="row" *ngFor="let student of school_1">
               <ion-col class="col" size="12">
                 <div class="ion-activatable ripple-parent">
-                  <ion-item (click)="openStudentScores(student.round_id, student.school_id, student.school_name, student.student_id, student.student_name)">
+                  <ion-item (click)="openStudentScores(student.round_id, student.school_id, student.school_name, student.student_id, student.student_name)" [disabled]="isStudentEvaluated(student.judge_id)">
                     <ion-label text-wrap>
                       {{student.student_name}}
                     </ion-label>
@@ -58,7 +58,7 @@
             <ion-row class="row" *ngFor="let student of school_2">
               <ion-col class="col" size="12">
                 <div class="ion-activatable ripple-parent">
-                  <ion-item (click)="openStudentScores(student.round_id, student.school_id, student.school_name, student.student_id, student.student_name)">
+                  <ion-item (click)="openStudentScores(student.round_id, student.school_id, student.school_name, student.student_id, student.student_name)" [disabled]="isStudentEvaluated(student.judge_id)">
                     <ion-label text-wrap>
                       {{student.student_name}}
                     </ion-label>
