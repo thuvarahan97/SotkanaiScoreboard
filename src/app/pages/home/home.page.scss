@@ -1,7 +1,7 @@
 .home-area {
     display: block;
     margin: auto;
-    padding: 10px 10px;
+    padding: 10px 0px;
 }
 
 ion-item {
@@ -19,4 +19,15 @@ ion-item {
     overflow: hidden;
     border-radius: 10px;
     border-width: 0;
+}
+
+.no-records {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
 }

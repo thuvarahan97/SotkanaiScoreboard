@@ -15,129 +15,68 @@
   </ion-refresher>
 
   <div class="home-area">
-    <ion-grid fixed="true">
-      
-      <ion-row class="row header">
-        <ion-col class="col" size="6">
-          <div>
-            <ion-item>
-              <ion-label text-wrap>
-                Jaffna Hindu College
-              </ion-label>
-            </ion-item>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div>
-            <ion-item>
-              <ion-label text-wrap>
-                Kokuvil hindu College
-              </ion-label>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
+    <ng-template [ngIf]="round_id != null && round_id != ''">
+      <ion-grid fixed="true">
+        
+        <ion-row class="row header">
+          <ion-col class="col" size="6">
+            <div>
+              <ion-item>
+                <ion-label text-wrap>
+                  {{school_name_1}}
+                </ion-label>
+              </ion-item>
+            </div>
+          </ion-col>
+          <ion-col class="col" size="6">
+            <div>
+              <ion-item>
+                <ion-label text-wrap>
+                  {{school_name_2}}
+                </ion-label>
+              </ion-item>
+            </div>
+          </ion-col>
+        </ion-row>
 
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div class="ion-activatable ripple-parent">
-            <ion-item (click)="openStudentScores(2)">
-              <ion-label text-wrap>
-                S. Thuvarahan
-              </ion-label>
-            </ion-item>
-            <ion-ripple-effect></ion-ripple-effect>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div class="ion-activatable ripple-parent">
-            <ion-item>
-              <ion-label text-wrap>
-                T. Rajinthan
-              </ion-label>
-            </ion-item>
-            <ion-ripple-effect></ion-ripple-effect>
-          </div>
-        </ion-col>
-      </ion-row>
+        <ion-row class="row">
+          <ion-col class="col" size="6">
+            <ion-row class="row" *ngFor="let student of school_1">
+              <ion-col class="col" size="12">
+                <div class="ion-activatable ripple-parent">
+                  <ion-item (click)="openStudentScores(student.round_id, student.school_id, student.school_name, student.student_id, student.student_name)">
+                    <ion-label text-wrap>
+                      {{student.student_name}}
+                    </ion-label>
+                  </ion-item>
+                  <ion-ripple-effect></ion-ripple-effect>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col class="col" size="6">
+            <ion-row class="row" *ngFor="let student of school_2">
+              <ion-col class="col" size="12">
+                <div class="ion-activatable ripple-parent">
+                  <ion-item (click)="openStudentScores(student.round_id, student.school_id, student.school_name, student.student_id, student.student_name)">
+                    <ion-label text-wrap>
+                      {{student.student_name}}
+                    </ion-label>
+                  </ion-item>
+                  <ion-ripple-effect></ion-ripple-effect>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
 
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div class="ion-activatable ripple-parent">
-            <ion-item (click)="openStudentScores(2)">
-              S. Thuvarahan
-            </ion-item>
-            <ion-ripple-effect></ion-ripple-effect>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div class="ion-activatable ripple-parent">
-            <ion-item>
-              T. Rajinthan
-            </ion-item>
-            <ion-ripple-effect></ion-ripple-effect>
-          </div>
-        </ion-col>
-      </ion-row>
+      </ion-grid>
+    </ng-template>
 
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div class="ion-activatable ripple-parent">
-            <ion-item (click)="openStudentScores(2)">
-              S. Thuvarahan
-            </ion-item>
-            <ion-ripple-effect></ion-ripple-effect>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div class="ion-activatable ripple-parent">
-            <ion-item>
-              T. Rajinthan
-            </ion-item>
-            <ion-ripple-effect></ion-ripple-effect>
-          </div>
-        </ion-col>
-      </ion-row>
+    <ng-template [ngIf]="round_id == ''">
+      <ion-text class="no-records">No records found.</ion-text>
+    </ng-template>
 
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div class="ion-activatable ripple-parent">
-            <ion-item (click)="openStudentScores(2)">
-              S. Thuvarahan
-            </ion-item>
-            <ion-ripple-effect></ion-ripple-effect>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div class="ion-activatable ripple-parent">
-            <ion-item>
-              T. Rajinthan
-            </ion-item>
-            <ion-ripple-effect></ion-ripple-effect>
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="row">
-        <ion-col class="col" size="6">
-          <div class="ion-activatable ripple-parent">
-            <ion-item (click)="openStudentScores(2)">
-              S. Thuvarahan
-            </ion-item>
-            <ion-ripple-effect></ion-ripple-effect>
-          </div>
-        </ion-col>
-        <ion-col class="col" size="6">
-          <div class="ion-activatable ripple-parent">
-            <ion-item>
-              T. Rajinthan
-            </ion-item>
-            <ion-ripple-effect></ion-ripple-effect>
-          </div>
-        </ion-col>
-      </ion-row>
-
-    </ion-grid>
   </div>
 
 </ion-content>

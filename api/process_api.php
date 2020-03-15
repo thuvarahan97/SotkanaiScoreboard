@@ -27,4 +27,27 @@ if ($postjson['aksi'] == "process_login") {
     echo $result;
 }
 
+if ($postjson['aksi'] == "load_schools_students") {
+    $query = mysqli_query($mysqli, "SELECT * FROM view_current_round");
+
+    while ($rows = mysqli_fetch_array($query)) {
+        $data[] = array(
+            'round_id' => $rows['round_id'],
+            'school_id' => $rows['school_id'],
+            'school_name' => $rows['school_name'],
+            'student_id' => $rows['student_id'],
+            'student_name' => $rows['student_name']
+        );
+    }
+
+    if ($query) {
+        $result = json_encode(array('success'=>true, 'result'=>$data));
+    }
+    else {
+        $result = json_encode(array('success'=>false));
+    }
+
+    echo $result;
+}
+
 ?>
