@@ -27,10 +27,10 @@ if ($postjson['aksi'] == "process_login") {
     echo $result;
 }
 
-if ($postjson['aksi'] == "load_schools_students") {
+elseif ($postjson['aksi'] == "load_schools_students") {
     $user_id = $postjson['user_id'];
 
-    $query = mysqli_query($mysqli, "SELECT DISTINCT A.round_id, A.round_name, A.school_id, A.school_name, A.student_id, A.student_name, B.judge_id FROM view_current_round A LEFT OUTER JOIN tbl_student_scores B ON A.round_id = B.round_id AND A.student_id = B.student_id AND B.judge_id = '$user_id' WHERE A.round_id = (SELECT round_id from view_current_round GROUP BY round_id ORDER BY round_id LIMIT 1)");
+    $query = mysqli_query($mysqli, "SELECT DISTINCT A.round_id, A.round_name, A.school_id, A.school_name, A.student_id, A.student_name, B.judge_id AS student_judge_id, C.judge_id AS school_judge_id FROM view_current_round A LEFT OUTER JOIN tbl_student_scores B ON A.round_id = B.round_id AND A.student_id = B.student_id AND B.judge_id = '$user_id' LEFT OUTER JOIN tbl_school_overall_scores C ON A.round_id = C.round_id AND A.school_id = C.school_id AND C.judge_id = '$user_id' WHERE A.round_id = (SELECT round_id from view_current_round GROUP BY round_id ORDER BY round_id LIMIT 1)");
 
     while ($rows = mysqli_fetch_array($query)) {
         $data[] = array(
@@ -39,7 +39,8 @@ if ($postjson['aksi'] == "load_schools_students") {
             'school_name' => $rows['school_name'],
             'student_id' => $rows['student_id'],
             'student_name' => $rows['student_name'],
-            'judge_id' => $rows['judge_id']
+            'student_judge_id' => $rows['student_judge_id'],
+            'school_judge_id' => $rows['school_judge_id']
         );
     }
 
@@ -53,7 +54,7 @@ if ($postjson['aksi'] == "load_schools_students") {
     echo $result;
 }
 
-if ($postjson['aksi'] == "submit_scores") {
+elseif ($postjson['aksi'] == "submit_scores") {
     $user_id = $postjson['user_id'];
     $round_id = $postjson['round_id'];
     $school_id = $postjson['school_id'];

@@ -14,8 +14,6 @@ export class HomePage implements OnInit {
   datastorage: any;
   user_id;
 
-  disabledButton;
-
   round_id;
   school_id_1;
   school_name_1;
@@ -24,6 +22,9 @@ export class HomePage implements OnInit {
 
   school_1;
   school_2;
+
+  school_judge_id_1;
+  school_judge_id_2;
 
   constructor(
     private router: Router,
@@ -37,22 +38,22 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  ionViewDidEnter() {
     this.storage.get('storage_xxx').then((res)=>{
       console.log(res);
       this.datastorage = res;
       this.user_id = this.datastorage.user_id;
-      this.disabledButton = false;
+      this.loadStudents();
     });
   }
 
-  ionViewWillEnter() {
-    this.loadStudents();
-  }
-  
-  async processLogout() {
-    this.storage.clear();
-    this.navCtrl.navigateRoot(['/login']);
-    this.presentToast('Successfully logged out!');
+  async doRefresh(event) {
+    setTimeout(() => {
+      this.ionViewDidEnter();
+      event.target.complete();
+    });
   }
 
   async loadStudents() {
@@ -61,6 +62,8 @@ export class HomePage implements OnInit {
     this.school_name_1 = "";
     this.school_id_2 = "";
     this.school_name_2 = "";
+    this.school_judge_id_1 = "";
+    this.school_judge_id_2 = "";
     this.school_1 = [];
     this.school_2 = [];
 
@@ -82,6 +85,8 @@ export class HomePage implements OnInit {
           this.school_name_1 = res.result[0]['school_name'];
           this.school_id_2 = res.result[res.result.length - 1]['school_id'];
           this.school_name_2 = res.result[res.result.length - 1]['school_name'];
+          this.school_judge_id_1 = res.result[0]['school_judge_id'];
+          this.school_judge_id_2 = res.result[res.result.length - 1]['school_judge_id'];
 
           for (let datas of res.result) {
             if (datas['school_id'] == this.school_id_1) {
@@ -101,6 +106,9 @@ export class HomePage implements OnInit {
           loader.dismiss();
           this.presentToast('Currently no records found!');
         }
+
+        resolve(true);
+
       },(err)=>{
         loader.dismiss();
         this.presentToast('Unable to load data!');
@@ -130,25 +138,25 @@ export class HomePage implements OnInit {
     toast.present();
   }
 
-  doRefresh(event) {
-    console.log('Begin async operation');
-
-    setTimeout(() => {
-      this.loadStudents();
-      console.log('Async operation has ended');
-      event.target.complete();
-    });
-  }
-
-  isStudentEvaluated(judge_id) {
-    if (judge_id != null) {
+  isStudentEvaluated(school_id, student_id, student_judge_id) {
+    if (student_judge_id != null && student_id != '#overall') {
+      return true;
+    }
+    else if (this.school_judge_id_1 != null && school_id == this.school_id_1 && student_id == '#overall') {
+      return true;
+    }
+    else if (this.school_judge_id_2 != null && school_id == this.school_id_2 && student_id == '#overall') {
       return true;
     }
     else {
       return false;
     }
   }
+  
+  async processLogout() {
+    this.storage.clear();
+    this.navCtrl.navigateRoot(['/login']);
+    this.presentToast('Successfully logged out!');
+  }
 
 }
-
-
