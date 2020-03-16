@@ -1,4 +1,11 @@
 <ion-header no-border>
+
+  <ion-item color="medium" *ngIf="connection_status==false">
+    <ion-label style="text-align: center;">
+      No internet connection
+    </ion-label>
+  </ion-item>
+
   <ion-toolbar color="primary">
     <ion-title>SOTKANAI SCOREBOARD</ion-title>
     <ion-buttons slot="end">
@@ -7,6 +14,7 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content class="bg-class">

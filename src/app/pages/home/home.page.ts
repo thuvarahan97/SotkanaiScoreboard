@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, NavigationExtras, ParamMap } from '@angular/rou
 import { ToastController, LoadingController, AlertController, NavController } from "@ionic/angular";
 import { AccessProviders } from "../../providers/access-providers";
 import { Storage } from "@ionic/storage";
+import { Network } from "@ionic-native/network/ngx";
+import { Dialogs } from "@ionic-native/dialogs/ngx";
 
 @Component({
   selector: 'app-home',
@@ -26,6 +28,8 @@ export class HomePage implements OnInit {
   school_judge_id_1;
   school_judge_id_2;
 
+  connection_status: Boolean = true;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -34,8 +38,18 @@ export class HomePage implements OnInit {
     private alertCtrl: AlertController,
     private navCtrl: NavController,
     private accsPrvds: AccessProviders,
-    private storage: Storage
-  ) { }
+    private storage: Storage,
+    public network: Network,
+    private dialog: Dialogs
+  ) {
+    this.network.onDisconnect().subscribe(() => {
+      this.connection_status = false;
+    });
+
+    this.network.onConnect().subscribe(() => {
+      this.connection_status = true;
+    });
+   }
 
   ngOnInit() {
   }
@@ -133,7 +147,7 @@ export class HomePage implements OnInit {
     const toast = await this.toastCtrl.create({
       message: a,
       duration: 1500,
-      position: 'top'
+      position: 'bottom'
     });
     toast.present();
   }

@@ -13,6 +13,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from "@angular/common/http";
 import { AccessProviders } from "./providers/access-providers";
 
+import { Network } from "@ionic-native/network/ngx";
+import { Dialogs } from "@ionic-native/dialogs/ngx";
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -27,6 +30,8 @@ import { AccessProviders } from "./providers/access-providers";
     StatusBar,
     SplashScreen,
     AccessProviders,
+    Network,
+    Dialogs,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

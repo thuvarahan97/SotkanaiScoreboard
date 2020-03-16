@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastController, LoadingController, AlertController, NavController } from "@ionic/angular";
 import { AccessProviders } from "../../providers/access-providers";
 import { Storage } from "@ionic/storage";
-import { HomePage } from '../home/home.page';
+import { Network } from "@ionic-native/network/ngx";
 
 @Component({
   selector: 'app-scores',
@@ -22,6 +22,8 @@ export class ScoresPage implements OnInit {
   datastorage: any;
   user_id: string;
 
+  connection_status: Boolean = true;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -31,7 +33,16 @@ export class ScoresPage implements OnInit {
     private navCtrl: NavController,
     private accsPrvds: AccessProviders,
     private storage: Storage,
-  ) { }
+    public network: Network
+  ) {
+    this.network.onDisconnect().subscribe(() => {
+      this.connection_status = false;
+    });
+
+    this.network.onConnect().subscribe(() => {
+      this.connection_status = true;
+    });
+  }
 
   ngOnInit() {
     this.grading_rubric = [
@@ -114,7 +125,7 @@ export class ScoresPage implements OnInit {
     const toast = await this.toastCtrl.create({
       message: a,
       duration: 1500,
-      position: 'top'
+      position: 'bottom'
     });
     toast.present();
   }

@@ -32,18 +32,23 @@ elseif ($postjson['aksi'] == "load_schools_students") {
 
     $query = mysqli_query($mysqli, "SELECT DISTINCT A.round_id, A.round_name, A.school_id, A.school_name, A.student_id, A.student_name, B.judge_id AS student_judge_id, C.judge_id AS school_judge_id FROM view_current_round A LEFT OUTER JOIN tbl_student_scores B ON A.round_id = B.round_id AND A.student_id = B.student_id AND B.judge_id = '$user_id' LEFT OUTER JOIN tbl_school_overall_scores C ON A.round_id = C.round_id AND A.school_id = C.school_id AND C.judge_id = '$user_id' WHERE A.round_id = (SELECT round_id from view_current_round GROUP BY round_id ORDER BY round_id LIMIT 1)");
 
-    while ($rows = mysqli_fetch_array($query)) {
-        $data[] = array(
-            'round_id' => $rows['round_id'],
-            'school_id' => $rows['school_id'],
-            'school_name' => $rows['school_name'],
-            'student_id' => $rows['student_id'],
-            'student_name' => $rows['student_name'],
-            'student_judge_id' => $rows['student_judge_id'],
-            'school_judge_id' => $rows['school_judge_id']
-        );
+    if (mysqli_num_rows($query) > 0) {
+        while ($rows = mysqli_fetch_array($query)) {
+            $data[] = array(
+                'round_id' => $rows['round_id'],
+                'school_id' => $rows['school_id'],
+                'school_name' => $rows['school_name'],
+                'student_id' => $rows['student_id'],
+                'student_name' => $rows['student_name'],
+                'student_judge_id' => $rows['student_judge_id'],
+                'school_judge_id' => $rows['school_judge_id']
+            );
+        }
     }
-
+    else {
+        $data = array();
+    }
+    
     if ($query) {
         $result = json_encode(array('success'=>true, 'result'=>$data));
     }
