@@ -16,6 +16,8 @@ import { AccessProviders } from "./providers/access-providers";
 import { Network } from "@ionic-native/network/ngx";
 import { Dialogs } from "@ionic-native/dialogs/ngx";
 
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -32,6 +34,7 @@ import { Dialogs } from "@ionic-native/dialogs/ngx";
     AccessProviders,
     Network,
     Dialogs,
+    ScreenOrientation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

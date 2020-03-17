@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastController, LoadingController, AlertController, NavController } from "@ionic/angular";
 import { AccessProviders } from "../../providers/access-providers";
 import { Storage } from "@ionic/storage";
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-login',
@@ -22,8 +23,12 @@ export class LoginPage implements OnInit {
     private alertCtrl: AlertController,
     private navCtrl: NavController,
     private accsPrvds: AccessProviders,
-    private storage: Storage
-  ) { }
+    private storage: Storage,
+    private screenOrientation: ScreenOrientation
+  ) {
+    // set screen orientation to portrait
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+  }
 
   ngOnInit() {
   }

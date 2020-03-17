@@ -5,6 +5,7 @@ import { AccessProviders } from "../../providers/access-providers";
 import { Storage } from "@ionic/storage";
 import { Network } from "@ionic-native/network/ngx";
 import { Dialogs } from "@ionic-native/dialogs/ngx";
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-home',
@@ -40,7 +41,8 @@ export class HomePage implements OnInit {
     private accsPrvds: AccessProviders,
     private storage: Storage,
     public network: Network,
-    private dialog: Dialogs
+    private dialog: Dialogs,
+    private screenOrientation: ScreenOrientation
   ) {
     this.network.onDisconnect().subscribe(() => {
       this.connection_status = false;
@@ -49,6 +51,9 @@ export class HomePage implements OnInit {
     this.network.onConnect().subscribe(() => {
       this.connection_status = true;
     });
+
+    // set screen orientation to portrait
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
    }
 
   ngOnInit() {

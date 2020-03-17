@@ -4,6 +4,7 @@ import { ToastController, LoadingController, AlertController, NavController } fr
 import { AccessProviders } from "../../providers/access-providers";
 import { Storage } from "@ionic/storage";
 import { Network } from "@ionic-native/network/ngx";
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-scores',
@@ -33,7 +34,8 @@ export class ScoresPage implements OnInit {
     private navCtrl: NavController,
     private accsPrvds: AccessProviders,
     private storage: Storage,
-    public network: Network
+    public network: Network,
+    private screenOrientation: ScreenOrientation
   ) {
     this.network.onDisconnect().subscribe(() => {
       this.connection_status = false;
@@ -42,6 +44,9 @@ export class ScoresPage implements OnInit {
     this.network.onConnect().subscribe(() => {
       this.connection_status = true;
     });
+
+    // set screen orientation to portrait
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
   }
 
   ngOnInit() {
