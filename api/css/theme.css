@@ -14678,15 +14678,29 @@ section {
     padding-right: 0px !important;
 }
 
-/* .round-content tr td:first-child {
-    color: #808080;
-}
-/* 
-.round-content tr td:last-child {
-    color: #4272d7;
-    text-align: right;
-} */
-
 .round-content tr:last-child td {
     border-bottom: none !important;
+}
+
+.table-content-details td {
+    text-align: left !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+
+.table-content-details tr td:last-child {
+    color: #000 !important;
+}
+
+
+.table-content-details tr td:last-child i {
+    color: #808080;
+}
+
+.table-content-details tr:first-child td {
+    padding-top: 35px !important;
+}
+
+.table-content-details tr:last-child td {
+    padding-bottom: 35px !important;
 }

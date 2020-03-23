@@ -5,7 +5,7 @@
 if (isset($_GET['round_id']) && !empty($_GET['round_id'])) {
     $round_id = $_GET['round_id'];
 
-    $query = mysqli_query($mysqli, "SELECT A.*, B.school_id_1, B.school_id_2, C.school_name AS school_name_1, D.school_name AS school_name_2 FROM tbl_rounds A LEFT OUTER JOIN tbl_rounds_schools B USING (round_id) INNER JOIN tbl_schools C ON B.school_id_1 = C.school_id INNER JOIN tbl_schools D ON B.school_id_2 = D.school_id WHERE round_id = '$round_id'");
+    $query = mysqli_query($mysqli, "SELECT A.*, E.competition_id, E.competition_name, F.district_id, F.district_name, B.school_id_1, B.school_id_2, C.school_name AS school_name_1, D.school_name AS school_name_2 FROM tbl_rounds A LEFT OUTER JOIN tbl_rounds_schools B USING (round_id) INNER JOIN tbl_schools C ON B.school_id_1 = C.school_id INNER JOIN tbl_schools D ON B.school_id_2 = D.school_id INNER JOIN tbl_competitions E ON A.competition_id = E.competition_id LEFT OUTER JOIN tbl_districts F ON E.district_id = F.district_id WHERE round_id = '$round_id'");
 
     if (mysqli_num_rows($query) > 0) {
         $row = mysqli_fetch_array($query);
@@ -34,65 +34,68 @@ else {
 <div class="row">
 
     <div class="col-lg-6">
-        <!-- DATA TABLE -->
-        <h3 class="title-5 m-b-35">Round Judges</h3>
         <div class="table-responsive">
-            <table class="table table-data2">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>judge id</th>
-                        <th>judge name</th>
-                        <th></th>
-                    </tr>
-                </thead>
+            <table class="table table-data2 table-content-details">
                 <tbody>
-
-                    <?php
-
-                    $query = mysqli_query($mysqli, "SELECT B.user_id, B.user_name FROM `tbl_rounds_judges` A INNER JOIN `tbl_users` B ON A.judge_id = B.user_id WHERE A.round_id = '$round_id'");
-
-                    if (mysqli_num_rows($query) > 0) {
-                        $num = 0;
-                        while ($row = mysqli_fetch_array($query)) {
-                            $num += 1;
-
-                    ?>
-
-                    <tr class="tr-shadow">
-                        <td><?php echo ($num); ?></td>
-                        <td><?php echo ($row['user_id']); ?></td>
-                        <td><?php echo ($row['user_name']); ?></td>
-                        <td>
+                    <tr>
+                        <td>Competition:</td>
+                        <td><?php echo $row['competition_name'];?></td>
+                    </tr>
+                    <tr>
+                        <td>Round:</td>
+                        <td><?php echo $row['round_name'];?></td>
+                    </tr>
+                    <tr>
+                        <td>District:</td>
+                        <?php if ($row['district_name'] != "" && !empty($row['district_name'])) { ?>
+                        <td><?php echo $row['district_name'];?></td>
+                        <?php } else { ?>
+                        <td><i>Unavailable</i></td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td>School 1:</td>
+                        <?php if ($school_id_1 != "" && !empty($school_id_1)) { ?>
+                        <td><?php echo $school_name_1;?></td>
+                        <?php } else { ?>
+                        <td><i>Unavailable</i></td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td>School 2:</td>
+                        <?php if ($school_id_2 != "" && !empty($school_id_2)) { ?>
+                        <td><?php echo $school_name_2;?></td>
+                        <?php } else { ?>
+                        <td><i>Unavailable</i></td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td>Round Status:</td>
+                        <?php if ($row['round_status'] == 1) { ?>
+                        <td style="color: green;">Active</td>
+                        <?php } else { ?>
+                        <td style="color: red;">Inactive</td>
+                        <?php } ?>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
                             <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Add">
-                                    <i class="zmdi zmdi-plus"></i>
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit Round">
+                                    <i class="zmdi zmdi-edit"></i>
                                 </button>
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete Round">
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
-                    <tr class="spacer"></tr>
-
-                    <?php }} else { ?>
-
-                    <tr class="tr-shadow">
-                        <td colspan="4" style="text-align: center;">No results found.</td>
-                    </tr>
-
-                    <?php } ?>
-
                 </tbody>
             </table>
         </div>
-        <!-- END DATA TABLE -->
     </div>
 
     <div class="col-lg-6">
         <!-- DATA TABLE -->
-        <h3 class="title-5 m-b-35">Round</h3>
         <div class="table-responsive">
             <table class="table table-data2">
                 <thead>
@@ -100,7 +103,13 @@ else {
                         <th>#</th>
                         <th>judge id</th>
                         <th>judge name</th>
-                        <th></th>
+                        <th style="padding-right: 35px;">
+                            <div class="table-data-feature">
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Add Judge" style="background-color: #63c76a;">
+                                    <i class="zmdi zmdi-plus" style="color: #FFF;"></i>
+                                </button>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,16 +128,16 @@ else {
                     <tr class="tr-shadow">
                         <td><?php echo ($num); ?></td>
                         <td><?php echo ($row['user_id']); ?></td>
+
+                        <?php if ($row['user_name'] != "" && !empty($row['user_name'])) { ?>
                         <td><?php echo ($row['user_name']); ?></td>
+                        <?php } else { ?>
+                        <td><i>Unavailable</i></td>
+                        <?php } ?>
+                        
                         <td>
                             <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Add Student">
-                                    <i class="zmdi zmdi-plus"></i>
-                                </button>
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit School">
-                                    <i class="zmdi zmdi-edit"></i>
-                                </button>
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete School">
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Remove Judge">
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>
                             </div>
