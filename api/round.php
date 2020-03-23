@@ -71,7 +71,7 @@ else {
                     </tr>
                     <tr>
                         <td>Round Status:</td>
-                        <?php if ($row['round_status'] == 1) { ?>
+                        <?php if ($row['round_status'] == '1') { ?>
                         <td style="color: green;">Active</td>
                         <?php } else { ?>
                         <td style="color: red;">Inactive</td>
@@ -116,7 +116,7 @@ else {
 
                     <?php
 
-                    $query = mysqli_query($mysqli, "SELECT B.user_id, B.user_name FROM `tbl_rounds_judges` A INNER JOIN `tbl_users` B ON A.judge_id = B.user_id WHERE A.round_id = '$round_id'");
+                    $query = mysqli_query($mysqli, "SELECT B.judge_id, B.judge_name FROM `tbl_rounds_judges` A INNER JOIN `tbl_judges` B ON A.judge_id = B.judge_id WHERE A.round_id = '$round_id'");
 
                     if (mysqli_num_rows($query) > 0) {
                         $num = 0;
@@ -127,10 +127,10 @@ else {
 
                     <tr class="tr-shadow">
                         <td><?php echo ($num); ?></td>
-                        <td><?php echo ($row['user_id']); ?></td>
+                        <td><?php echo ($row['judge_id']); ?></td>
 
-                        <?php if ($row['user_name'] != "" && !empty($row['user_name'])) { ?>
-                        <td><?php echo ($row['user_name']); ?></td>
+                        <?php if ($row['judge_name'] != "" && !empty($row['judge_name'])) { ?>
+                        <td><?php echo ($row['judge_name']); ?></td>
                         <?php } else { ?>
                         <td><i>Unavailable</i></td>
                         <?php } ?>
@@ -182,7 +182,7 @@ else {
 
                     <?php
 
-                    $query = mysqli_query($mysqli, "SELECT COUNT(*) AS `count` FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.user_id, D.user_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_users D ON C.judge_id = D.user_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'Overall' AS `name`, D.user_id, D.user_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_users D ON C.judge_id = D.user_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id')) S ORDER BY school_id, student_id, `user_id`");
+                    $query = mysqli_query($mysqli, "SELECT COUNT(*) AS `count` FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'Overall' AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id')) S ORDER BY school_id, student_id, `judge_id`");
 
                     $row = mysqli_fetch_array($query);
                     
@@ -190,7 +190,7 @@ else {
 
                     <?php
 
-                    $query = mysqli_query($mysqli, "SELECT school_id, `name`, `user_id`, `user_name`, aspect1, aspect2, aspect3, total_score FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.user_id, D.user_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_users D ON C.judge_id = D.user_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_1') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'Overall' AS `name`, D.user_id, D.user_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_users D ON C.judge_id = D.user_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_1')) S ORDER BY school_id, student_id, `user_id`");
+                    $query = mysqli_query($mysqli, "SELECT school_id, `name`, `judge_id`, `judge_name`, aspect1, aspect2, aspect3, total_score FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_1') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'Overall' AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_1')) S ORDER BY school_id, student_id, `judge_id`");
 
                     if (mysqli_num_rows($query) > 0) {
                         $num = 0;
@@ -205,7 +205,7 @@ else {
 
                     <tr>
                         <td><?php echo $row['name'];?></td>
-                        <td><?php echo $row['user_name'];?></td>
+                        <td><?php echo $row['judge_name'];?></td>
                         <td><?php echo $row['aspect1'];?></td>
                         <td><?php echo $row['aspect2'];?></td>
                         <td><?php echo $row['aspect3'];?></td>
@@ -224,7 +224,7 @@ else {
 
                     <?php
 
-                    $query = mysqli_query($mysqli, "SELECT school_id, `name`, `user_id`, `user_name`, aspect1, aspect2, aspect3, total_score FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.user_id, D.user_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_users D ON C.judge_id = D.user_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_2') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'overall' AS `name`, D.user_id, D.user_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_users D ON C.judge_id = D.user_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_2')) S ORDER BY school_id, student_id, `user_id`");
+                    $query = mysqli_query($mysqli, "SELECT school_id, `name`, `judge_id`, `judge_name`, aspect1, aspect2, aspect3, total_score FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_2') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'overall' AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_2')) S ORDER BY school_id, student_id, `judge_id`");
 
                     if (mysqli_num_rows($query) > 0) {
                         $num = 0;
@@ -239,7 +239,7 @@ else {
 
                     <tr>
                         <td><?php echo $row['name'];?></td>
-                        <td><?php echo $row['user_name'];?></td>
+                        <td><?php echo $row['judge_name'];?></td>
                         <td><?php echo $row['aspect1'];?></td>
                         <td><?php echo $row['aspect2'];?></td>
                         <td><?php echo $row['aspect3'];?></td>

@@ -14688,10 +14688,9 @@ section {
     padding-bottom: 15px !important;
 }
 
-.table-content-details tr td:last-child {
+.table-content-details tr:not(:nth-child(6)) td:last-child {
     color: #000 !important;
 }
-
 
 .table-content-details tr td:last-child i {
     color: #808080;

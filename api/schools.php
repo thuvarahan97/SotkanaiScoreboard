@@ -4,12 +4,6 @@
     <div class="col-md-12">
         <!-- DATA TABLE -->
         <h3 class="title-5 m-b-35">Schools & Students</h3>
-        <div class="table-data__tool">
-            <div class="table-data__tool-right">
-                <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                    <i class="zmdi zmdi-plus"></i>add item</button>
-            </div>
-        </div>
         <div class="table-responsive table-responsive-data2">
             <table class="table table-data2">
                 <thead>
@@ -22,7 +16,13 @@
                         <!-- <th>status</th> -->
                         <th>district</th>
                         <th>students</th>
-                        <th></th>
+                        <th style="padding-right: 35px;">
+                            <div class="table-data-feature">
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Add School" style="background-color: #63c76a;">
+                                    <i class="zmdi zmdi-plus" style="color: #FFF;"></i>
+                                </button>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
