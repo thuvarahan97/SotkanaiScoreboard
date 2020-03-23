@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-md-12">
         <!-- DATA TABLE -->
-        <h3 class="title-5 m-b-35">Competitions & Rounds</h3>
+        <h3 class="title-5 m-b-35">Schools & Students</h3>
         <div class="table-data__tool">
             <div class="table-data__tool-right">
                 <button class="au-btn au-btn-icon au-btn--green au-btn--small">
@@ -15,13 +15,13 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>title</th>
+                        <th>school</th>
                         <!-- <th>email</th> -->
                         <!-- <th>description</th> -->
                         <!-- <th>date</th> -->
                         <!-- <th>status</th> -->
                         <th>district</th>
-                        <th>rounds</th>
+                        <th>students</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -29,20 +29,19 @@
 
                     <?php
 
-                    $query = mysqli_query($mysqli, "SELECT A.*, B.district_name, GROUP_CONCAT(C.round_id ORDER BY C.round_id ASC) AS round_ids, GROUP_CONCAT(C.round_name ORDER BY C.round_id ASC) AS round_names, GROUP_CONCAT(C.round_status ORDER BY C.round_id ASC) AS round_status FROM `tbl_competitions` A LEFT OUTER JOIN `tbl_districts` B USING (district_id) INNER JOIN `tbl_rounds` C USING (competition_id) GROUP BY A.competition_id ORDER BY A.competition_id ASC");
+                    $query = mysqli_query($mysqli, "SELECT A.*, B.district_name, GROUP_CONCAT(C.student_id ORDER BY C.student_id ASC) AS student_ids, GROUP_CONCAT(C.student_name ORDER BY C.student_id ASC) AS student_names FROM `tbl_schools` A LEFT OUTER JOIN `tbl_districts` B USING (district_id) INNER JOIN `tbl_students` C USING (school_id) GROUP BY A.school_id ORDER BY A.school_id ASC");
                 
                     if (mysqli_num_rows($query) > 0) {
                         $num = 0;
                         while ($row = mysqli_fetch_array($query)) {
                             $num += 1;
-                            $round_ids = explode(',', $row['round_ids']);
-                            $round_names = explode (",", $row['round_names']);
-                            $round_status = array_map('intval', explode (",", $row['round_status']));
+                            $student_ids = explode(",", $row['student_ids']);
+                            $student_names = explode (",", $row['student_names']);
                     ?>
 
                     <tr class="tr-shadow">
                         <td><?php echo ($num); ?></td>
-                        <td><?php echo ($row['competition_name']); ?></td>
+                        <td><?php echo ($row['school_name']); ?></td>
                         <!-- <td>
                             <span class="block-email">lori@example.com</span>
                         </td> -->
@@ -55,27 +54,16 @@
                         <td class="round-content">
                             <table class="table">
                                 <tbody>
-                                    <?php for ($x = 0; $x < sizeof($round_names); $x++) { ?>
+                                    <?php for ($x = 0; $x < sizeof($student_names); $x++) { ?>
                                     <tr>
                                         <td><?php echo ($x + 1); ?></td>
-                                        <td><a href="round.php?round_id=<?php echo $round_ids[$x]; ?>"><?php echo ($round_names[$x]); ?></a></td>
+                                        <td><?php echo ($student_names[$x]); ?></td>
                                         <td>
                                             <div class="table-data-feature">
-                                                <label class="switch switch-3d switch-success mr-2" style="vertical-align: middle;">
-                                                    <input type="checkbox" class="switch-input" 
-                                                        <?php if ($round_status[$x] == '0') { ?>
-                                                            
-                                                        <?php } elseif ($round_status[$x] == '1') { ?>
-                                                            checked="true"
-                                                        <?php } ?>
-                                                    >
-                                                    <span class="switch-label"></span>
-                                                    <span class="switch-handle"></span>
-                                                </label>
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit Round">
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit Student">
                                                     <i class="zmdi zmdi-edit"></i>
                                                 </button>
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete Round">
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete Student">
                                                     <i class="zmdi zmdi-delete"></i>
                                                 </button>
                                             </div>
@@ -87,13 +75,13 @@
                         </td>
                         <td>
                             <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Add Round">
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Add Student">
                                     <i class="zmdi zmdi-plus"></i>
                                 </button>
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit Competition">
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit School">
                                     <i class="zmdi zmdi-edit"></i>
                                 </button>
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete Competition">
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete School">
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>
                             </div>

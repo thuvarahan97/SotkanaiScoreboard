@@ -14649,3 +14649,44 @@ section {
 .vue-lists ul, .vue-lists ol {
     padding-left: 30px;
 }
+
+
+
+/*------------------------------ Custom Styles -----------------------------*/
+
+.round-content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.round-content td {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    border-top: none !important;
+    border-bottom: 1px solid #e5e5e5 !important;
+}
+
+.round-content td:first-child {
+    padding-left: 0px !important;
+}
+
+.round-content td:nth-child(2) {
+    padding-left: 0px !important;
+}
+
+.round-content td:last-child {
+    padding-right: 0px !important;
+}
+
+/* .round-content tr td:first-child {
+    color: #808080;
+}
+/* 
+.round-content tr td:last-child {
+    color: #4272d7;
+    text-align: right;
+} */
+
+.round-content tr:last-child td {
+    border-bottom: none !important;
+}
