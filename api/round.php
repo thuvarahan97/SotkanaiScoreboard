@@ -5,7 +5,7 @@
 if (isset($_GET['round_id']) && !empty($_GET['round_id'])) {
     $round_id = $_GET['round_id'];
 
-    $query = mysqli_query($mysqli, "SELECT A.*, E.competition_id, E.competition_name, F.district_id, F.district_name, B.school_id_1, B.school_id_2, C.school_name AS school_name_1, D.school_name AS school_name_2 FROM tbl_rounds A LEFT OUTER JOIN tbl_rounds_schools B USING (round_id) INNER JOIN tbl_schools C ON B.school_id_1 = C.school_id INNER JOIN tbl_schools D ON B.school_id_2 = D.school_id INNER JOIN tbl_competitions E ON A.competition_id = E.competition_id LEFT OUTER JOIN tbl_districts F ON E.district_id = F.district_id WHERE round_id = '$round_id'");
+    $query = mysqli_query($mysqli, "SELECT A.*, E.competition_id, E.competition_name, F.district_id, F.district_name, B.school_id_1, B.school_id_2, C.school_name AS school_name_1, D.school_name AS school_name_2 FROM tbl_rounds A LEFT OUTER JOIN tbl_rounds_schools B USING (round_id) LEFT OUTER JOIN tbl_schools C ON B.school_id_1 = C.school_id LEFT OUTER JOIN tbl_schools D ON B.school_id_2 = D.school_id INNER JOIN tbl_competitions E ON A.competition_id = E.competition_id LEFT OUTER JOIN tbl_districts F ON E.district_id = F.district_id WHERE round_id = '$round_id'");
 
     if (mysqli_num_rows($query) > 0) {
         $row = mysqli_fetch_array($query);
@@ -73,7 +73,7 @@ else {
                         <td>Round Status:</td>
                         <?php if ($row['round_status'] == '1') { ?>
                         <td style="color: green;">Active</td>
-                        <?php } else { ?>
+                        <?php } elseif ($row['round_status'] == '0') { ?>
                         <td style="color: red;">Inactive</td>
                         <?php } ?>
                     </tr>

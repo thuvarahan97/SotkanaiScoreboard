@@ -11,10 +11,10 @@ include "config.php";
 $postjson = json_decode(file_get_contents('php://input'), true);
 
 if ($postjson['aksi'] == "process_login") {
-    $logindata = mysqli_fetch_array(mysqli_query($mysqli, "SELECT * FROM tbl_users WHERE user_id = '$postjson[user_id]'"));
+    $logindata = mysqli_fetch_array(mysqli_query($mysqli, "SELECT * FROM tbl_judges WHERE judge_id = '$postjson[judge_id]'"));
 
     $data = array(
-        'user_id' => $logindata['user_id']
+        'judge_id' => $logindata['judge_id']
     );
 
     if ($logindata) {
@@ -28,9 +28,9 @@ if ($postjson['aksi'] == "process_login") {
 }
 
 elseif ($postjson['aksi'] == "load_schools_students") {
-    $user_id = $postjson['user_id'];
+    $judge_id = $postjson['judge_id'];
 
-    $query = mysqli_query($mysqli, "SELECT DISTINCT A.round_id, A.round_name, A.school_id, A.school_name, A.student_id, A.student_name, B.judge_id AS student_judge_id, C.judge_id AS school_judge_id FROM view_current_round A INNER JOIN tbl_rounds_judges D ON A.round_id = D.round_id AND D.judge_id = '$user_id' LEFT OUTER JOIN tbl_student_scores B ON A.round_id = B.round_id AND A.student_id = B.student_id AND B.judge_id = '$user_id' LEFT OUTER JOIN tbl_school_overall_scores C ON A.round_id = C.round_id AND A.school_id = C.school_id AND C.judge_id = '$user_id' WHERE A.round_id = (SELECT round_id from view_current_round GROUP BY round_id ORDER BY round_id LIMIT 1) ORDER BY A.school_id ASC, A.student_id ASC");
+    $query = mysqli_query($mysqli, "SELECT DISTINCT A.round_id, A.round_name, A.school_id, A.school_name, A.student_id, A.student_name, B.judge_id AS student_judge_id, C.judge_id AS school_judge_id FROM view_current_round A INNER JOIN tbl_rounds_judges D ON A.round_id = D.round_id AND D.judge_id = '$judge_id' LEFT OUTER JOIN tbl_student_scores B ON A.round_id = B.round_id AND A.student_id = B.student_id AND B.judge_id = '$judge_id' LEFT OUTER JOIN tbl_school_overall_scores C ON A.round_id = C.round_id AND A.school_id = C.school_id AND C.judge_id = '$judge_id' WHERE A.round_id = (SELECT round_id from view_current_round GROUP BY round_id ORDER BY round_id LIMIT 1) ORDER BY A.school_id ASC, A.student_id ASC");
 
     if (mysqli_num_rows($query) > 0) {
         while ($rows = mysqli_fetch_array($query)) {
@@ -60,7 +60,7 @@ elseif ($postjson['aksi'] == "load_schools_students") {
 }
 
 elseif ($postjson['aksi'] == "submit_scores") {
-    $user_id = $postjson['user_id'];
+    $judge_id = $postjson['judge_id'];
     $round_id = $postjson['round_id'];
     $school_id = $postjson['school_id'];
     $student_id = $postjson['student_id'];
@@ -70,10 +70,10 @@ elseif ($postjson['aksi'] == "submit_scores") {
     $total_score = $score_1 + $score_2 + $score_3;
 
     if ($student_id == '#overall') {
-        $query = mysqli_query($mysqli, "INSERT INTO tbl_school_overall_scores (`school_id`, `round_id`, `judge_id`, `aspect1`, `aspect2`, `aspect3`, `total_score`) VALUES ('$school_id', '$round_id', '$user_id', '$score_1', '$score_2', '$score_3', '$total_score')");
+        $query = mysqli_query($mysqli, "INSERT INTO tbl_school_overall_scores (`school_id`, `round_id`, `judge_id`, `aspect1`, `aspect2`, `aspect3`, `total_score`) VALUES ('$school_id', '$round_id', '$judge_id', '$score_1', '$score_2', '$score_3', '$total_score')");
     }
     else {
-        $query = mysqli_query($mysqli, "INSERT INTO tbl_student_scores (`student_id`, `round_id`, `judge_id`, `aspect1`, `aspect2`, `aspect3`, `total_score`) VALUES ('$student_id', '$round_id', '$user_id', '$score_1', '$score_2', '$score_3', '$total_score')");
+        $query = mysqli_query($mysqli, "INSERT INTO tbl_student_scores (`student_id`, `round_id`, `judge_id`, `aspect1`, `aspect2`, `aspect3`, `total_score`) VALUES ('$student_id', '$round_id', '$judge_id', '$score_1', '$score_2', '$score_3', '$total_score')");
     }
     
     if ($query) {

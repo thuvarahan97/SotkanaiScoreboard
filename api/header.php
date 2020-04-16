@@ -1,5 +1,11 @@
 <?php include_once 'config.php'; ?>
 
+<?php
+function alert($message) {
+    echo "<script>alert('$message')</script>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +43,7 @@
 
 </head>
 
-<body class="animsition">
+<body>
     <div class="page-wrapper">
         <!-- HEADER MOBILE-->
         <header class="header-mobile d-block d-lg-none">

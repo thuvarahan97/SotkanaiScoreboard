@@ -21,7 +21,7 @@ export class ScoresPage implements OnInit {
   grading_rubric;
 
   datastorage: any;
-  user_id: string;
+  judge_id: string;
 
   connection_status: Boolean = true;
 
@@ -62,7 +62,7 @@ export class ScoresPage implements OnInit {
 
     this.storage.get('storage_xxx').then((res)=>{
       this.datastorage = res;
-      this.user_id = this.datastorage.user_id;
+      this.judge_id = this.datastorage.judge_id;
     });
 
     this.loadStudentDetails();
@@ -98,7 +98,7 @@ export class ScoresPage implements OnInit {
       return new Promise(resolve=> {
         let body = {
           aksi: 'submit_scores',
-          user_id: this.user_id,
+          judge_id: this.judge_id,
           round_id: this.round_id,
           school_id: this.school_id,
           student_id: this.student_id,

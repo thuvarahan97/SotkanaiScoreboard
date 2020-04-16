@@ -14703,3 +14703,11 @@ section {
 .table-content-details tr:last-child td {
     padding-bottom: 35px !important;
 }
+
+.custom-center {
+    margin: auto;
+}
+
+.form-buttons {
+    text-align: center;
+}

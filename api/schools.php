@@ -18,9 +18,9 @@
                         <th>students</th>
                         <th style="padding-right: 35px;">
                             <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Add School" style="background-color: #63c76a;">
+                                <a class="item" href="add.school.php" data-toggle="tooltip" data-placement="top" title="Add School" style="background-color: #63c76a;">
                                     <i class="zmdi zmdi-plus" style="color: #FFF;"></i>
-                                </button>
+                                </a>
                             </div>
                         </th>
                     </tr>
@@ -29,7 +29,7 @@
 
                     <?php
 
-                    $query = mysqli_query($mysqli, "SELECT A.*, B.district_name, GROUP_CONCAT(C.student_id ORDER BY C.student_id ASC) AS student_ids, GROUP_CONCAT(C.student_name ORDER BY C.student_id ASC) AS student_names FROM `tbl_schools` A LEFT OUTER JOIN `tbl_districts` B USING (district_id) INNER JOIN `tbl_students` C USING (school_id) GROUP BY A.school_id ORDER BY A.school_id ASC");
+                    $query = mysqli_query($mysqli, "SELECT A.*, B.district_name, GROUP_CONCAT(C.student_id ORDER BY C.student_id ASC) AS student_ids, GROUP_CONCAT(C.student_name ORDER BY C.student_id ASC) AS student_names FROM `tbl_schools` A LEFT OUTER JOIN `tbl_districts` B USING (district_id) LEFT OUTER JOIN `tbl_students` C USING (school_id) GROUP BY A.school_id ORDER BY A.school_id ASC");
                 
                     if (mysqli_num_rows($query) > 0) {
                         $num = 0;
@@ -52,6 +52,7 @@
                         </td> -->
                         <td><?php echo ($row['district_name']); ?></td>
                         <td class="round-content">
+                            <?php if ($student_ids[0]!= '') { ?>
                             <table class="table">
                                 <tbody>
                                     <?php for ($x = 0; $x < sizeof($student_names); $x++) { ?>
@@ -60,10 +61,10 @@
                                         <td><?php echo ($student_names[$x]); ?></td>
                                         <td>
                                             <div class="table-data-feature">
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit Student">
+                                                <a class="item" data-toggle="tooltip" data-placement="top" title="Edit Student" href="edit.student.php?id=<?php echo $student_ids[$x];?>">
                                                     <i class="zmdi zmdi-edit"></i>
-                                                </button>
-                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete Student">
+                                                </a>
+                                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete Student" student_id="<?php echo $student_ids[$x];?>" id="delete_student">
                                                     <i class="zmdi zmdi-delete"></i>
                                                 </button>
                                             </div>
@@ -72,16 +73,17 @@
                                     <?php } ?>
                                 </tbody>
                             </table>
+                            <?php } else { echo "None"; } ?>
                         </td>
                         <td>
                             <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Add Student">
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Add Student" href="add.student.php?id=<?php echo $row['school_id'];?>&name=<?php echo $row['school_name'];?>">
                                     <i class="zmdi zmdi-plus"></i>
-                                </button>
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit School">
+                                </a>
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Edit School" href="edit.school.php?id=<?php echo $row['school_id'];?>">
                                     <i class="zmdi zmdi-edit"></i>
-                                </button>
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete School">
+                                </a>
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete School" school_id="<?php echo $row['school_id'];?>" id="delete_school">
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>
                             </div>
@@ -99,3 +101,45 @@
 </div>
 
 <?php include_once 'footer.php'; ?>
+
+<script>
+    $(document).on("click","#delete_school",function(){
+        const school_id = $(this).attr("school_id");
+
+        if (confirm("Do you want to delete this school?")) {
+            $.ajax({
+                url:"delete.school.php",
+                type:"post",
+                data:{id:school_id},
+                success:function(output){
+                    if (output) {
+                        location.reload();
+                    }
+                    else {
+                        alert("Process failed.");
+                    }
+                }
+            });
+        }
+    });
+
+    $(document).on("click","#delete_student",function(){
+        const student_id = $(this).attr("student_id");
+
+        if (confirm("Do you want to delete this student?")) {
+            $.ajax({
+                url:"delete.student.php",
+                type:"post",
+                data:{id:student_id},
+                success:function(output){
+                    if (output) {
+                        location.reload();
+                    }
+                    else {
+                        alert("Process failed.");
+                    }
+                }
+            });
+        }
+    });
+</script>

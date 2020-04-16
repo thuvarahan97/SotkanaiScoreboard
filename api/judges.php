@@ -17,9 +17,9 @@
                         <th>judge name</th>
                         <th style="padding-right: 35px;">
                             <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Add Judge" style="background-color: #63c76a;">
+                                <a href="add.judge.php" class="item" data-toggle="tooltip" data-placement="top" title="Add Judge" style="background-color: #63c76a;">
                                     <i class="zmdi zmdi-plus" style="color: #FFF;"></i>
-                                </button>
+                                </a>
                             </div>
                         </th>
                     </tr>
@@ -54,10 +54,10 @@
                         <?php } ?>
                         <td>
                             <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit Judge">
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Edit Judge" href="edit.judge.php?id=<?php echo urlencode($row['judge_id']);?>">
                                     <i class="zmdi zmdi-edit"></i>
-                                </button>
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete Judge">
+                                </a>
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete Judge" judge_id="<?php echo $row['judge_id'];?>" id="delete_judge">
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>
                             </div>
@@ -75,3 +75,25 @@
 </div>
 
 <?php include_once 'footer.php'; ?>
+
+<script>
+    $(document).on("click","#delete_judge",function(){
+        const judge_id = $(this).attr("judge_id");
+
+        if (confirm("Do you want to delete this judge?")) {
+            $.ajax({
+                url:"delete.judge.php",
+                type:"post",
+                data:{id:judge_id},
+                success:function(output){
+                    if (output) {
+                        location.reload();
+                    }
+                    else {
+                        alert("Process failed.");
+                    }
+                }
+            });
+        }
+    });
+</script>

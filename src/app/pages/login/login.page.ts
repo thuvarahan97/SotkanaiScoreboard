@@ -12,7 +12,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 })
 export class LoginPage implements OnInit {
 
-  user_id: string = "";
+  judge_id: string = "";
 
   disabledButton;
 
@@ -38,8 +38,8 @@ export class LoginPage implements OnInit {
   }
 
   async tryLogin() {
-    if (this.user_id == ""){
-      this.presentToast('User ID is required!')
+    if (this.judge_id == ""){
+      this.presentToast('Judge ID is required!')
     }
     else {
       this.disabledButton = true;
@@ -51,7 +51,7 @@ export class LoginPage implements OnInit {
       return new Promise(resolve=> {
         let body = {
           aksi: 'process_login',
-          user_id: this.user_id
+          judge_id: this.judge_id
         }
 
         this.accsPrvds.postData(body, 'process_api.php').subscribe((res:any)=>{
@@ -65,7 +65,7 @@ export class LoginPage implements OnInit {
           else {
             loader.dismiss();
             this.disabledButton = false;
-            this.presentToast('User ID is unavailable!');
+            this.presentToast('Judge ID is unavailable!');
           }
         },(err)=>{
           loader.dismiss();

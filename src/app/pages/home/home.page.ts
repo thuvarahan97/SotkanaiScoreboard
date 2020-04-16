@@ -15,7 +15,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 export class HomePage implements OnInit {
 
   datastorage: any;
-  user_id;
+  judge_id;
 
   round_id;
   school_id_1;
@@ -63,7 +63,7 @@ export class HomePage implements OnInit {
     this.storage.get('storage_xxx').then((res)=>{
       console.log(res);
       this.datastorage = res;
-      this.user_id = this.datastorage.user_id;
+      this.judge_id = this.datastorage.judge_id;
       this.loadStudents();
     });
   }
@@ -94,7 +94,7 @@ export class HomePage implements OnInit {
     return new Promise(resolve=> {
       let body = {
         aksi: 'load_schools_students',
-        user_id: this.user_id
+        judge_id: this.judge_id
       }
 
       this.accsPrvds.postData(body, 'process_api.php').subscribe((res:any)=>{
