@@ -80,10 +80,10 @@ else {
                     <tr>
                         <td colspan="2">
                             <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Edit Round">
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Edit Round" href="edit.round.php?id=<?php echo $round_id;?>&page=round">
                                     <i class="zmdi zmdi-edit"></i>
-                                </button>
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete Round">
+                                </a>
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Delete Round" round_id="<?php echo $round_id;?>" id="delete_round">
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>
                             </div>
@@ -105,9 +105,9 @@ else {
                         <th>judge name</th>
                         <th style="padding-right: 35px;">
                             <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Add Judge" style="background-color: #63c76a;">
+                                <a class="item" data-toggle="tooltip" data-placement="top" title="Add Judge" style="background-color: #63c76a;" href="add.round.judge.php?id=<?php echo $round_id;?>&name=<?php echo $row['round_name'];?>">
                                     <i class="zmdi zmdi-plus" style="color: #FFF;"></i>
-                                </button>
+                                </a>
                             </div>
                         </th>
                     </tr>
@@ -137,7 +137,7 @@ else {
                         
                         <td>
                             <div class="table-data-feature">
-                                <button class="item" data-toggle="tooltip" data-placement="top" title="Remove Judge">
+                                <button class="item" data-toggle="tooltip" data-placement="top" title="Remove Judge" judge_id="<?php echo $row['judge_id'];?>" id="remove_judge">
                                     <i class="zmdi zmdi-delete"></i>
                                 </button>
                             </div>
@@ -266,3 +266,46 @@ else {
 </div>
 
 <?php include_once 'footer.php'; ?>
+
+<script>
+    $(document).on("click","#delete_round",function(){
+        const round_id = $(this).attr("round_id");
+
+        if (confirm("Do you want to delete this round?")) {
+            $.ajax({
+                url:"delete.round.php",
+                type:"post",
+                data:{id:round_id},
+                success:function(output){
+                    if (output) {
+                        location.replace('competitions.php');
+                    }
+                    else {
+                        alert("Process failed.");
+                    }
+                }
+            });
+        }
+    });
+    
+    $(document).on("click","#remove_judge",function(){
+        const round_id = <?php echo $round_id;?>;
+        const judge_id = $(this).attr("judge_id");
+
+        if (confirm("Do you want to remove this judge?")) {
+            $.ajax({
+                url:"delete.round.judge.php",
+                type:"post",
+                data:{round_id: round_id, judge_id: judge_id},
+                success:function(output){
+                    if (output) {
+                        location.reload();
+                    }
+                    else {
+                        alert("Process failed.");
+                    }
+                }
+            });
+        }
+    });
+</script>

@@ -1,0 +1,1 @@
+<script>location.replace('competitions.php')</script>

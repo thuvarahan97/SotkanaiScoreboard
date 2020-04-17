@@ -14711,3 +14711,7 @@ section {
 .form-buttons {
     text-align: center;
 }
+
+.logo a {
+    margin: auto;
+}
