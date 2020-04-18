@@ -148,9 +148,9 @@ export class HomePage implements OnInit {
     this.navCtrl.navigateForward(['/scores'], navigationExtras);
   }
 
-  async presentToast(a) {
+  async presentToast(msg) {
     const toast = await this.toastCtrl.create({
-      message: a,
+      message: msg,
       duration: 1500,
       position: 'bottom'
     });

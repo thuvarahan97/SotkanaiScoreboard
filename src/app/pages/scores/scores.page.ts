@@ -79,6 +79,10 @@ export class ScoresPage implements OnInit {
   }
 
   async submitScores() {
+    this.confirmSubmit();
+  }
+
+  async saveScores() {
     var emptyScores = 0;
     this.grading_rubric.forEach(element => {
       if (element.ngmodel == 0) {
@@ -126,13 +130,34 @@ export class ScoresPage implements OnInit {
     }
   }
 
-  async presentToast(a) {
+  async presentToast(msg) {
     const toast = await this.toastCtrl.create({
-      message: a,
+      message: msg,
       duration: 1500,
       position: 'bottom'
     });
     toast.present();
+  }
+
+  async confirmSubmit() {
+    const alert = await this.alertCtrl.create({
+      header: 'Confirm!',
+      message: 'Are you sure you want to <strong>submit</strong> the scores?',
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.saveScores();
+          }
+        },
+        {
+          text: 'No',
+          role: 'cancel'
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async processLogout() {

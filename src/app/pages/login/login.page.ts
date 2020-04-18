@@ -14,8 +14,6 @@ export class LoginPage implements OnInit {
 
   judge_id: string = "";
 
-  disabledButton;
-
   constructor(
     private router: Router,
     private toastCtrl: ToastController,
@@ -33,16 +31,11 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewDidEnter() {
-    this.disabledButton = false;
-  }
-
   async tryLogin() {
     if (this.judge_id == ""){
       this.presentToast('Judge ID is required!')
     }
     else {
-      this.disabledButton = true;
       const loader = await this.loadingCtrl.create({
         message: 'Please wait...',
       });
@@ -57,28 +50,25 @@ export class LoginPage implements OnInit {
         this.accsPrvds.postData(body, 'process_api.php').subscribe((res:any)=>{
           if(res.success == true){
             loader.dismiss();
-            this.disabledButton = false;
             this.presentToast('Successfully logged in!');
             this.storage.set('storage_xxx', res.result); // create storage session
             this.navCtrl.navigateRoot(['/home']);
           }
           else {
             loader.dismiss();
-            this.disabledButton = false;
             this.presentToast('Judge ID is unavailable!');
           }
         },(err)=>{
           loader.dismiss();
-          this.disabledButton = false;
           this.presentToast('Login Timeout!');
         })
       });
     }
   }
 
-  async presentToast(a) {
+  async presentToast(msg) {
     const toast = await this.toastCtrl.create({
-      message: a,
+      message: msg,
       duration: 1500,
       position: 'bottom'
     });

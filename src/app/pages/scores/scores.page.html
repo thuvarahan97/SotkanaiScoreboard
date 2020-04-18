@@ -6,7 +6,7 @@
     </ion-label>
   </ion-item>
 
-  <ion-toolbar color="primary">
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -32,10 +32,10 @@
     
     <ion-item *ngFor="let criteria of grading_rubric">
       <ion-label>
-        <ion-text color="primary">
+        <ion-text color="dark">
           <h3>{{criteria.title}} <ion-badge class="score-badge">{{criteria.ngmodel}}</ion-badge></h3>
         </ion-text>
-        <ion-range min="0" max="100" color="primary" pin="true" [(ngModel)]="criteria.ngmodel">
+        <ion-range min="0" max="100" color="dark" pin="true" [(ngModel)]="criteria.ngmodel">
           <ion-label slot="start">0</ion-label>
           <ion-label slot="end">100</ion-label>
         </ion-range>
@@ -44,6 +44,6 @@
 
   </ion-list>
 
-  <ion-button expand="full" class="submit-btn no-padding" color="primary" (click)="submitScores()">Submit</ion-button>
+  <ion-button expand="full" class="submit-btn no-padding" color="dark" (click)="submitScores()">Submit</ion-button>
 
 </ion-content>
