@@ -91,7 +91,11 @@
                     </tr>
                     <tr class="spacer"></tr>
 
-                    <?php }} ?>
+                    <?php }} else { ?>
+                    <tr class="tr-shadow">
+                        <td colspan="6" style="text-align: center;">No results found.</td>
+                    </tr>
+                    <?php } ?>
 
                 </tbody>
             </table>

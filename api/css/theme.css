@@ -14669,14 +14669,17 @@ section {
 
 .round-content td:first-child {
     padding-left: 0px !important;
+    width: 10px !important;
 }
 
 .round-content td:nth-child(2) {
     padding-left: 0px !important;
+    /* min-width: 100px; */
 }
 
 .round-content td:last-child {
     padding-right: 0px !important;
+    width: 50px !important;
 }
 
 .round-content tr:last-child td {

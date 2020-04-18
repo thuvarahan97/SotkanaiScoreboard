@@ -1,19 +1,33 @@
-<?php include_once 'header.php'; ?>
+<?php 
+
+include_once 'header.php'; 
+
+$search = "";
+
+if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+}
+
+?>
 
 <div class="row">
     <div class="col-md-12">
         <!-- DATA TABLE -->
-        <h3 class="title-5 m-b-35">judges</h3>
+        <h3 class="title-5 m-b-35" style="display: inline;">judges</h3>
+        <form action="" method="get" style="width: 250px; display: inline; float: right;">
+            <div class="form-group">
+                <input class="form-control" type="text" name="search" placeholder="Search" />
+            </div>
+            <div class="form-buttons" style="display: none;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Submit">
+            </div>
+        </form>
         <div class="table-responsive table-responsive-data2">
             <table class="table table-data2">
                 <thead>
                     <tr>
                         <th>#</th>
                         <th>judge id</th>
-                        <!-- <th>email</th> -->
-                        <!-- <th>description</th> -->
-                        <!-- <th>date</th> -->
-                        <!-- <th>status</th> -->
                         <th>judge name</th>
                         <th style="padding-right: 35px;">
                             <div class="table-data-feature">
@@ -28,7 +42,7 @@
 
                     <?php
 
-                    $query = mysqli_query($mysqli, "SELECT * FROM `tbl_judges`");
+                    $query = mysqli_query($mysqli, "SELECT * FROM `tbl_judges` WHERE judge_id LIKE '%$search%' OR judge_name LIKE '%$search%'");
                 
                     if (mysqli_num_rows($query) > 0) {
                         $num = 0;
@@ -39,14 +53,6 @@
                     <tr class="tr-shadow">
                         <td><?php echo ($num); ?></td>
                         <td><?php echo ($row['judge_id']); ?></td>
-                        <!-- <td>
-                            <span class="block-email">lori@example.com</span>
-                        </td> -->
-                        <!-- <td class="desc">Samsung S8 Black</td> -->
-                        <!-- <td>2018-09-27 02:12</td> -->
-                        <!-- <td>
-                            <span class="status--process">Processed</span>
-                        </td> -->
                         <?php if ($row['judge_name'] != "" && !empty($row['judge_name'])) { ?>
                         <td><?php echo ($row['judge_name']);?></td>
                         <?php } else { ?>
@@ -65,7 +71,11 @@
                     </tr>
                     <tr class="spacer"></tr>
 
-                    <?php }} ?>
+                    <?php }} else { ?>
+                    <tr class="tr-shadow">
+                        <td colspan="6" style="text-align: center;">No results found.</td>
+                    </tr>
+                    <?php } ?>
 
                 </tbody>
             </table>
