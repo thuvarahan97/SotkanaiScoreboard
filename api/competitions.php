@@ -60,26 +60,13 @@
                                     <tr>
                                         <td><?php echo ($x + 1); ?></td>
                                         <td><a href="round.php?round_id=<?php echo $round_ids[$x]; ?>"><?php echo ($round_names[$x]); ?></a></td>
-                                        <td>
-                                            <?php if ($round_status[$x] == '1') { ?>
-                                                <td style="color: green;">Active</td>
-                                            <?php } elseif ($round_status[$x] == '0') { ?>
-                                                <td style="color: red;">Inactive</td>
-                                            <?php } ?>
+                                        <td class="text-right"
+                                            <?php if ($round_status[$x] == '1') {
+                                                echo 'style="color: green;">Active';
+                                            } elseif ($round_status[$x] == '0') {
+                                                echo 'style="color: red;">Inactive';
+                                            } ?>
                                         </td>
-                                        <!-- <td>
-                                            <label class="switch switch-3d switch-success">
-                                                <input type="checkbox" class="switch-input" 
-                                                    <?php if ($round_status[$x] == '0') { ?>
-                                                        
-                                                    <?php } elseif ($round_status[$x] == '1') { ?>
-                                                        checked="true"
-                                                    <?php } ?>
-                                                >
-                                                <span class="switch-label"></span>
-                                                <span class="switch-handle"></span>
-                                            </label>
-                                        </td> -->
                                         <td>
                                             <div class="table-data-feature">
                                                 <a class="item" data-toggle="tooltip" data-placement="top" title="Edit Round" href="edit.round.php?id=<?php echo $round_ids[$x];?>">

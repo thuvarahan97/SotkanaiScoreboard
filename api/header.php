@@ -1,4 +1,13 @@
-<?php include_once 'config.php'; ?>
+<?php 
+
+include_once 'config.php';
+session_start();
+date_default_timezone_set("Asia/Colombo");
+
+if(!isset($_SESSION['user_id'])){
+    echo "<script>location.replace('login.php')</script>";
+}
+?>
 
 <?php
 function alert($message) {
@@ -125,7 +134,7 @@ function alert($message) {
                                             <img src="images/icon/avatar.png" />
                                         </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">Thuvarahan</a>
+                                            <a class="js-acc-btn"><?php echo $_SESSION['firstname'];?></a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
@@ -136,23 +145,13 @@ function alert($message) {
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#">john doe</a>
+                                                        <a><?php echo $_SESSION['firstname'];?></a>
                                                     </h5>
-                                                    <span class="email">johndoe@example.com</span>
-                                                </div>
-                                            </div>
-                                            <div class="account-dropdown__body">
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="#">
-                                                        <i class="zmdi zmdi-settings"></i>Setting</a>
+                                                    <span class="email"><?php echo $_SESSION['username'];?></span>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
+                                                <a href="logout.php">
                                                     <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>

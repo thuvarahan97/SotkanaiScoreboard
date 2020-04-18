@@ -115,7 +115,6 @@ if (isset($_POST['submit'])) {
                     <div class="form-group">
                         <label for="round_status" class="control-label mb-1">Round Status</label>
                         <select name="round_status" id="round_status" class="form-control" required>
-                            <option value="">Please select</option>
                             <option value="0" <?php if ($round_status=="0") { echo "selected"; }?>>Inactive</option>
                             <option value="1" <?php if ($round_status=="1") { echo "selected"; }?>>Active</option>
                         </select>
