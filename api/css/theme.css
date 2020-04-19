@@ -14719,3 +14719,21 @@ section {
 .logo a {
     margin: auto;
 }
+
+.scores-table th:first-child {
+    max-width: 50px !important;
+}
+
+.scores-table td:first-child {
+    max-width: 50px !important;
+}
+
+@media (max-width: 575px) {
+    .scores-table th:first-child {
+        padding-right: 50px;
+    }
+    
+    .scores-table td:first-child {
+        padding-right: 50px;
+    }
+}

@@ -165,15 +165,19 @@ else {
     <div class="col-md-12">
         <!-- DATA TABLE-->
         <div class="table-responsive">
-            <table class="table table-borderless table-data3">
+            <table class="table table-borderless table-data3 scores-table">
                 <thead>
                     <tr>
-                        <th>name</th>
-                        <th>judge</th>
-                        <th>score 1</th>
-                        <th>score 2</th>
-                        <th>score 3</th>
-                        <th>total score</th>
+                        <th>#</th>
+                        <th>மாணவர் பெயர்</th>
+                        <th>நடுவர்</th>
+                        <th>பொருள்</th>
+                        <th>சமயோசிதம்</th>
+                        <th>அழகியல்</th>
+                        <th>தொனி</th>
+                        <th>நிலை</th>
+                        <th>மொழிவளம்</th>
+                        <th>மொத்தப் புள்ளிகள்</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -182,7 +186,7 @@ else {
 
                     <?php
 
-                    $query = mysqli_query($mysqli, "SELECT COUNT(*) AS `count` FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'Overall' AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id')) S ORDER BY school_id, student_id, `judge_id`");
+                    $query = mysqli_query($mysqli, "SELECT COUNT(*) AS `count` FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.judge_id, D.judge_name, A.score_1, A.score_2, A.score_3, A.score_4, A.score_5, A.score_6, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'Overall' AS `name`, D.judge_id, D.judge_name, A.score_1, A.score_2, A.score_3, A.score_4, A.score_5, A.score_6, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id')) S ORDER BY school_id, student_id, `judge_id`");
 
                     $row = mysqli_fetch_array($query);
                     
@@ -190,25 +194,48 @@ else {
 
                     <?php
 
-                    $query = mysqli_query($mysqli, "SELECT school_id, `name`, `judge_id`, `judge_name`, aspect1, aspect2, aspect3, total_score FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_1') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'Overall' AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_1')) S ORDER BY school_id, student_id, `judge_id`");
+                    $query = mysqli_query($mysqli, "SELECT school_id, `name`, `judge_id`, `judge_name`, score_1, score_2, score_3, score_4, score_5, score_6, total_score FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.judge_id, D.judge_name, A.score_1, A.score_2, A.score_3, A.score_4, A.score_5, A.score_6, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_1') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'Overall' AS `name`, D.judge_id, D.judge_name, A.score_1, A.score_2, A.score_3, A.score_4, A.score_5, A.score_6, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_1')) S ORDER BY school_id, student_id, `judge_id`");
 
                     if (mysqli_num_rows($query) > 0) {
                         $num = 0;
-
+                        $total_scores = 0;
+                        $scores_array = array();
+                        while ($row = mysqli_fetch_array($query)) {
+                            $data = array(
+                                'name' => $row['name'],
+                                'judge_id' => $row['judge_id'],
+                                'judge_name' => $row['judge_name'],
+                                'score_1' => $row['score_1'],
+                                'score_2' => $row['score_2'],
+                                'score_3' => $row['score_3'],
+                                'score_4' => $row['score_4'],
+                                'score_5' => $row['score_5'],
+                                'score_6' => $row['score_6'],
+                                'total_score' => $row['total_score']
+                            );
+                            array_push($scores_array, $data);
+                            $total_scores += $row['total_score'];
+                        }
+                        
                     ?>
 
                     <tr class="tr-shadow">
-                        <td colspan="6" style="color: blue; text-align: left; background-color: #f7f7f7;"><?php echo $school_name_1;?></td>
+                        <td colspan="9" style="color: blue; text-align: left; background-color: #f7f7f7;"><?php echo $school_name_1;?></td>
+                        <td class="text-right" style="color: green; text-align: left; background-color: #f7f7f7; font-weight: bold;"><?php echo $total_scores;?></td>
                     </tr>
                     
-                    <?php while ($row = mysqli_fetch_array($query)) { ?>
+                    <?php foreach($scores_array as $row){ $num += 1; ?>
 
                     <tr>
+                        <td><?php echo $num;?></td>
                         <td><?php echo $row['name'];?></td>
-                        <td><?php echo $row['judge_name'];?></td>
-                        <td><?php echo $row['aspect1'];?></td>
-                        <td><?php echo $row['aspect2'];?></td>
-                        <td><?php echo $row['aspect3'];?></td>
+                        <td title="<?php echo $row['judge_name'];?>"><?php echo $row['judge_id'];?></td>
+                        <td><?php echo $row['score_1'];?></td>
+                        <td><?php echo $row['score_2'];?></td>
+                        <td><?php echo $row['score_3'];?></td>
+                        <td><?php echo $row['score_4'];?></td>
+                        <td><?php echo $row['score_5'];?></td>
+                        <td><?php echo $row['score_6'];?></td>
                         <td><?php echo $row['total_score'];?></td>
                     </tr>
 
@@ -224,25 +251,47 @@ else {
 
                     <?php
 
-                    $query = mysqli_query($mysqli, "SELECT school_id, `name`, `judge_id`, `judge_name`, aspect1, aspect2, aspect3, total_score FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_2') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'overall' AS `name`, D.judge_id, D.judge_name, A.aspect1, A.aspect2, A.aspect3, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_2')) S ORDER BY school_id, student_id, `judge_id`");
+                    $query = mysqli_query($mysqli, "SELECT school_id, `name`, `judge_id`, `judge_name`, score_1, score_2, score_3, score_4, score_5, score_6, total_score FROM ((SELECT F.school_id, E.student_id, B.student_name AS `name`, D.judge_id, D.judge_name, A.score_1, A.score_2, A.score_3, A.score_4, A.score_5, A.score_6, A.total_score FROM tbl_student_scores A INNER JOIN tbl_students B USING (student_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_students E ON A.student_id = E.student_id INNER JOIN tbl_schools F ON E.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_2') UNION (SELECT F.school_id, 'ZZZ' AS student_id, 'Overall' AS `name`, D.judge_id, D.judge_name, A.score_1, A.score_2, A.score_3, A.score_4, A.score_5, A.score_6, A.total_score FROM tbl_school_overall_scores A INNER JOIN tbl_schools B USING (school_id) INNER JOIN tbl_rounds_judges C ON A.judge_id = C.judge_id INNER JOIN tbl_judges D ON C.judge_id = D.judge_id INNER JOIN tbl_schools F ON A.school_id = F.school_id WHERE A.round_id='$round_id' AND F.school_id = '$school_id_2')) S ORDER BY school_id, student_id, `judge_id`");
 
                     if (mysqli_num_rows($query) > 0) {
                         $num = 0;
-
+                        $total_scores = 0;
+                        $scores_array = array();
+                        while ($row = mysqli_fetch_array($query)) {
+                            $data = array(
+                                'name' => $row['name'],
+                                'judge_id' => $row['judge_id'],
+                                'judge_name' => $row['judge_name'],
+                                'score_1' => $row['score_1'],
+                                'score_2' => $row['score_2'],
+                                'score_3' => $row['score_3'],
+                                'score_4' => $row['score_4'],
+                                'score_5' => $row['score_5'],
+                                'score_6' => $row['score_6'],
+                                'total_score' => $row['total_score']
+                            );
+                            array_push($scores_array, $data);
+                            $total_scores += $row['total_score'];
+                        }
                     ?>
 
                     <tr class="tr-shadow">
-                        <td colspan="6" style="color: blue; text-align: left; background-color: #f7f7f7;"><?php echo $school_name_2;?></td>
+                        <td colspan="9" style="color: blue; text-align: left; background-color: #f7f7f7;"><?php echo $school_name_2;?></td>
+                        <td class="text-right" style="color: green; text-align: left; background-color: #f7f7f7; font-weight: bold;"><?php echo $total_scores;?></td>
                     </tr>
-
-                    <?php while ($row = mysqli_fetch_array($query)) { ?>
+                    
+                    <?php foreach($scores_array as $row){ $num += 1; ?>
 
                     <tr>
+                        <td><?php echo $num;?></td>
                         <td><?php echo $row['name'];?></td>
-                        <td><?php echo $row['judge_name'];?></td>
-                        <td><?php echo $row['aspect1'];?></td>
-                        <td><?php echo $row['aspect2'];?></td>
-                        <td><?php echo $row['aspect3'];?></td>
+                        <td title="<?php echo $row['judge_name'];?>"><?php echo $row['judge_id'];?></td>
+                        <td><?php echo $row['score_1'];?></td>
+                        <td><?php echo $row['score_2'];?></td>
+                        <td><?php echo $row['score_3'];?></td>
+                        <td><?php echo $row['score_4'];?></td>
+                        <td><?php echo $row['score_5'];?></td>
+                        <td><?php echo $row['score_6'];?></td>
                         <td><?php echo $row['total_score'];?></td>
                     </tr>
 

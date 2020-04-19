@@ -61,7 +61,6 @@ export class HomePage implements OnInit {
 
   ionViewDidEnter() {
     this.storage.get('storage_xxx').then((res)=>{
-      console.log(res);
       this.datastorage = res;
       this.judge_id = this.datastorage.judge_id;
       this.loadStudents();
@@ -93,7 +92,7 @@ export class HomePage implements OnInit {
 
     return new Promise(resolve=> {
       let body = {
-        aksi: 'load_schools_students',
+        key: 'load_schools_students',
         judge_id: this.judge_id
       }
 
@@ -135,14 +134,15 @@ export class HomePage implements OnInit {
     });
   }
 
-  openStudentScores(round_id, school_id, school_name, student_id, student_name) {
+  openStudentScores(round_id, school_id, school_name, student_id, student_name, student_order) {
     let navigationExtras: NavigationExtras = {
       queryParams: {
           round_id : round_id,
           school_id : school_id,
           school_name : school_name,
           student_id : student_id,
-          student_name : student_name
+          student_name : student_name,
+          student_order: student_order
       }
     };
     this.navCtrl.navigateForward(['/scores'], navigationExtras);

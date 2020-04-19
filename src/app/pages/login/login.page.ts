@@ -43,16 +43,22 @@ export class LoginPage implements OnInit {
 
       return new Promise(resolve=> {
         let body = {
-          aksi: 'process_login',
+          key: 'process_login',
           judge_id: this.judge_id
         }
 
         this.accsPrvds.postData(body, 'process_api.php').subscribe((res:any)=>{
           if(res.success == true){
             loader.dismiss();
-            this.presentToast('Successfully logged in!');
-            this.storage.set('storage_xxx', res.result); // create storage session
-            this.navCtrl.navigateRoot(['/home']);
+
+            if (res.result.judge_name == "" || res.result.judge_name == null) {
+              this.presentAlertPrompt(res.result);
+            }
+            else {
+              this.presentToast('Successfully logged in!');
+              this.storage.set('storage_xxx', res.result); // create storage session
+              this.navCtrl.navigateRoot(['/home']);
+            }
           }
           else {
             loader.dismiss();
@@ -73,6 +79,54 @@ export class LoginPage implements OnInit {
       position: 'bottom'
     });
     toast.present();
+  }
+
+  async presentAlertPrompt(login_result) {
+    const alert = await this.alertCtrl.create({
+      message: 'Please enter your name to continue.',
+      backdropDismiss: false,
+      cssClass: 'alert-prompt',
+      inputs: [
+        {
+          name: 'judge_name',
+          type: 'text',
+          placeholder: 'Enter your name.'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Save',
+          handler: (data) => {
+            if (data.judge_name !== null && data.judge_name !== "") {        
+              return new Promise(resolve=> {
+                let body = {
+                  key: 'save_judge_name',
+                  judge_id: login_result.judge_id,
+                  judge_name: data.judge_name
+                }
+        
+                this.accsPrvds.postData(body, 'process_api.php').subscribe((res:any)=>{
+                  if (res.success == true) {
+                    this.presentToast('Successfully logged in!');
+                    this.storage.set('storage_xxx', login_result); // create storage session
+                    this.navCtrl.navigateRoot(['/home']);
+                  }
+                  else {
+                    this.presentToast('Unable to save your data!');
+                  }
+                },(err)=>{
+                  this.presentToast('Saving Timeout!');
+                })
+              });
+            }
+            else {
+              this.presentToast('Enter your name to continue.');
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

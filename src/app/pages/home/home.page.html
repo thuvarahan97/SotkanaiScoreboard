@@ -49,10 +49,10 @@
 
         <ion-row class="row">
           <ion-col class="col" size="6">
-            <ion-row class="row" *ngFor="let student of school_1">
+            <ion-row class="row" *ngFor="let student of school_1; let i = index">
               <ion-col class="col" size="12">
                 <div class="ion-activatable ripple-parent">
-                  <ion-item (click)="openStudentScores(student.round_id, student.school_id, student.school_name, student.student_id, student.student_name)" [disabled]="isStudentEvaluated(student.school_id, student.student_id, student.student_judge_id)">
+                  <ion-item (click)="openStudentScores(student.round_id, student.school_id, student.school_name, student.student_id, student.student_name, i+1)" [disabled]="isStudentEvaluated(student.school_id, student.student_id, student.student_judge_id)">
                     <ion-label text-wrap>
                       {{student.student_name}}
                     </ion-label>

@@ -35,15 +35,29 @@
         <ion-text color="dark">
           <h3>{{criteria.title}} <ion-badge class="score-badge">{{criteria.ngmodel}}</ion-badge></h3>
         </ion-text>
-        <ion-range min="0" max="100" color="dark" pin="true" [(ngModel)]="criteria.ngmodel">
+        <ion-range min="0" max="{{criteria.maxScore}}" color="dark" pin="true" [(ngModel)]="criteria.ngmodel" *ngIf="student_order>2 || student_order=='' || student_order==undefined; else maxScore1">
           <ion-label slot="start">0</ion-label>
-          <ion-label slot="end">100</ion-label>
+          <ion-label slot="end">{{criteria.maxScore}}</ion-label>
         </ion-range>
+        <ng-template #maxScore1>
+          <ion-range min="0" max="{{criteria.maxScore1}}" color="dark" pin="true" [(ngModel)]="criteria.ngmodel" *ngIf="student_order==1; else maxScore2">
+            <ion-label slot="start">0</ion-label>
+            <ion-label slot="end">{{criteria.maxScore1}}</ion-label>
+          </ion-range>
+        </ng-template>
+        <ng-template #maxScore2>
+          <ion-range min="0" max="{{criteria.maxScore2}}" color="dark" pin="true" [(ngModel)]="criteria.ngmodel">
+            <ion-label slot="start">0</ion-label>
+            <ion-label slot="end">{{criteria.maxScore2}}</ion-label>
+          </ion-range>
+        </ng-template>
       </ion-label>
     </ion-item>
 
   </ion-list>
 
-  <ion-button expand="full" class="submit-btn no-padding" color="dark" (click)="submitScores()">Submit</ion-button>
+  <div class="submit-button">
+    <ion-button expand="full" class="submit-btn no-padding" color="dark" (click)="submitScores()">Submit</ion-button>
+  </div>
 
 </ion-content>

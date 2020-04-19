@@ -17,6 +17,7 @@ export class ScoresPage implements OnInit {
   school_name: any;
   student_id: any;
   student_name: any;
+  student_order: number;
 
   grading_rubric;
 
@@ -51,9 +52,12 @@ export class ScoresPage implements OnInit {
 
   ngOnInit() {
     this.grading_rubric = [
-      {'title':'Organization & Clarity', 'ngmodel':'score_1'},
-      {'title':'Use of Argument', 'ngmodel':'score_2'},
-      {'title':'Presentation Style', 'ngmodel':'score_3'}
+      {'title':'பொருள்', 'ngmodel':'score_1', 'maxScore':30, 'maxScore1':50, 'maxScore2':40},
+      {'title':'சமயோசிதம்', 'ngmodel':'score_2', 'maxScore':30, 'maxScore1':10, 'maxScore2':20},
+      {'title':'அழகியல்', 'ngmodel':'score_3', 'maxScore':10, 'maxScore1':10, 'maxScore2':10},
+      {'title':'தொனி', 'ngmodel':'score_4', 'maxScore':10, 'maxScore1':10, 'maxScore2':10},
+      {'title':'நிலை', 'ngmodel':'score_5', 'maxScore':10, 'maxScore1':10, 'maxScore2':10},
+      {'title':'மொழிவளம்', 'ngmodel':'score_6', 'maxScore':10, 'maxScore1':10, 'maxScore2':10}
     ];
 
     this.grading_rubric.forEach(element => {
@@ -75,6 +79,7 @@ export class ScoresPage implements OnInit {
       this.school_name = params['school_name'];
       this.student_id = params['student_id'];
       this.student_name = params['student_name'];
+      this.student_order = params['student_order'];
     });
   }
 
@@ -101,7 +106,7 @@ export class ScoresPage implements OnInit {
 
       return new Promise(resolve=> {
         let body = {
-          aksi: 'submit_scores',
+          key: 'submit_scores',
           judge_id: this.judge_id,
           round_id: this.round_id,
           school_id: this.school_id,
