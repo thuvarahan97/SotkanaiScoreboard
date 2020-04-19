@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 include_once("db_config.php");
 
 if(isset($_SESSION['user_id']))
