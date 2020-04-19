@@ -302,7 +302,7 @@ else {
                     <?php } else { ?>
 
                     <tr class="tr-shadow">
-                        <td colspan="6" style="text-align: center;">No results found.</td>
+                        <td colspan="10" style="text-align: center;">No results found.</td>
                     </tr>
 
                     <?php } ?>
