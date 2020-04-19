@@ -5,8 +5,8 @@
 }
 
 .home-area ion-item {
-    --border-width: 2px;
-    --border-radius: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
     --background: transparent;
 }
 
@@ -30,4 +30,8 @@
     transform: translate(-50%, -50%);
     width: 100%;
     text-align: center;
+}
+
+ion-item {
+    --border-style: none;
 }

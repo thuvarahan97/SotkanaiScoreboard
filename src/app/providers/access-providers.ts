@@ -6,7 +6,7 @@ import 'rxjs/add/operator/timeout';
 @Injectable()
 export class AccessProviders {
     //url backend api json
-    server: string = 'http://localhost/sotkanaiScoreboard/api/'
+    server: string = 'https://sotkanaiscoreboard.000webhostapp.com/'
 
     constructor(
         public http: HttpClient
@@ -14,7 +14,7 @@ export class AccessProviders {
 
     postData(body, file){
         let headers = new HttpHeaders({
-            'Content-Type': 'application/json; charset=UTF-8'
+            // 'Content-Type': 'application/json; charset=UTF-8'
         });
 
         let options = {

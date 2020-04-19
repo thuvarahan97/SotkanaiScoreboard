@@ -73,7 +73,7 @@
                                     <?php } ?>
                                 </tbody>
                             </table>
-                            <?php } else { echo "None"; } ?>
+                            <?php } else { echo "<i>Unavailable</i>"; } ?>
                         </td>
                         <td>
                             <div class="table-data-feature">

@@ -26,7 +26,7 @@ function alert($message) {
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Login</title>
+    <title>Sotkanai Scoreboard - Admin Panel</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -59,7 +59,7 @@ function alert($message) {
                     <div class="login-content">
                         <div class="login-logo">
                             <a>
-                                <img src="images/icon/logo.png" alt="CoolAdmin">
+                                <img src="images/icon/logo2.png" style="width: 300px;">
                             </a>
                         </div>
                         <div class="login-form">

@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from "@ionic/storage";
 import { NavController } from "@ionic/angular";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,9 +18,20 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private storage: Storage,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    private router: Router
   ) {
     this.initializeApp();
+  }
+
+  ngOnInit() {
+    this.platform.backButton.subscribeWithPriority(0, () => {
+      if (this.router.url === '/home' || this.router.url === '/login') {
+        navigator['app'].exitApp();
+      }  else {
+       this.navCtrl.back();
+      }
+    });
   }
 
   initializeApp() {
