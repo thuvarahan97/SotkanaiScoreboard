@@ -35,7 +35,7 @@
         <ion-text color="dark">
           <h3>{{criteria.title}} <ion-badge class="score-badge">{{criteria.ngmodel}}</ion-badge></h3>
         </ion-text>
-        <ion-range min="0" max="{{criteria.maxScore}}" color="dark" pin="true" [(ngModel)]="criteria.ngmodel" *ngIf="student_order>2 || student_order=='' || student_order==undefined; else maxScore1">
+        <ion-range min="0" max="{{criteria.maxScore}}" color="dark" pin="true" [(ngModel)]="criteria.ngmodel" *ngIf="student_order>2 || student_order==undefined; else maxScore1">
           <ion-label slot="start">0</ion-label>
           <ion-label slot="end">{{criteria.maxScore}}</ion-label>
         </ion-range>
